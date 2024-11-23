@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect, useState } from 'react';
 
-const TOTAL_IMAGES = 220;
+const TOTAL_IMAGES = 215;
 
 export default function Home() {
     const [mounted, setMounted] = useState(false);
@@ -23,7 +23,6 @@ export default function Home() {
                 alt="Background"
                 fill
                 className="object-cover opacity-30 transition-all duration-1000 -z-10"
-                quality={100}
             />
 
             <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
