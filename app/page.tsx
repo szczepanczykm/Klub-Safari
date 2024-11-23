@@ -3,15 +3,35 @@ import Image from "next/image";
 import { useEffect, useState } from 'react';
 
 const TOTAL_IMAGES = 215;
+const ROTATION_INTERVAL = 5000; // 5 seconds between changes
 
 export default function Home() {
     const [mounted, setMounted] = useState(false);
     const [randomImage, setRandomImage] = useState(1);
 
+    // Initial setup
     useEffect(() => {
         setMounted(true);
         setRandomImage(Math.floor(Math.random() * TOTAL_IMAGES) + 1);
     }, []);
+
+    // Auto-rotation effect
+    useEffect(() => {
+        if (!mounted) return;
+
+        const interval = setInterval(() => {
+            setRandomImage(current => {
+                let next;
+                do {
+                    next = Math.floor(Math.random() * TOTAL_IMAGES) + 1;
+                } while (next === current); // Ensure we don't show the same image twice
+                return next;
+            });
+        }, ROTATION_INTERVAL);
+
+        // Cleanup interval on component unmount
+        return () => clearInterval(interval);
+    }, [mounted]);
 
     if (!mounted) return null;
 
